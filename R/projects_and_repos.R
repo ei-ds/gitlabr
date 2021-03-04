@@ -348,7 +348,7 @@ gl_get_diff <-  function(project,
 #' my_gitlab <- gl_connection(
 #'   gitlab_url = "https://gitlab.com",
 #'   private_token = Sys.getenv("GITLAB_TOKEN"))
-#' gl_new_project(name = "toto")
+#' gl_new_project(name = "toto", gitlab_con = my_gitlab)
 #' }
 gl_new_project <- function(name,
                            path,
@@ -357,5 +357,5 @@ gl_new_project <- function(name,
   gitlab(req = "projects", name = name,
          path = path,
          verb = httr::POST,
-         gitlab_con = my_gitlab)
+         ...)
 }
