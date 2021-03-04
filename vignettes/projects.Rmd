@@ -1,0 +1,41 @@
+---
+title: "projects"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{projects}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(gitlabr)
+```
+
+# New project
+```{r, eval=FALSE}
+my_gitlab <- gl_connection(
+  gitlab_url = "https://gitlab.com",
+  private_token = Sys.getenv("GITLAB_TOKEN"))
+
+#' @param path to the new project if name is not provided. Repository name for new project. Generated based on name if not provided (generated as lowercase with dashes).
+#' @param name of the new project. The name of the new project. Equals path if not provided
+gl_new_project <- function(name,
+                           path,
+                           ...) {
+  
+  gitlab(req = "projects", name = name,
+         path = path,
+         verb = httr::POST,
+         gitlab_con = my_gitlab)
+}
+
+gl_new_project(name = "toto")
+```
+
